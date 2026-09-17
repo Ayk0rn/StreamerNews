@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -9,7 +8,10 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1">
 
-<title>Latest Streamer News</title>
+<meta name="description"
+      content="The latest streamer and streaming news.">
+
+<title>Streamer News</title>
 
 <style>
 
@@ -17,65 +19,253 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
-    padding: 30px 20px;
-    background: #f4f4f4;
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #17112b 0%,
+            #09090d 42%,
+            #050507 100%
+        );
+
+    color: #f5f5f7;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.02) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.02) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+
+    pointer-events: none;
 }
 
 .container {
-    max-width: 900px;
+    position: relative;
+    max-width: 1000px;
     margin: auto;
+    padding: 35px 18px 70px;
 }
 
-h1 {
+.header {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 42px;
+}
+
+.logo {
+    font-size: clamp(32px, 7vw, 58px);
+    font-weight: 900;
+    letter-spacing: -2px;
+
+    margin: 0;
+}
+
+.logo span {
+    color: #9b6cff;
+}
+
+.subtitle {
+    color: #9a9aa6;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 18px;
+    padding: 7px 13px;
+
+    border: 1px solid #252530;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.03);
+
+    color: #b9b9c4;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+    background: #65e58b;
+
+    box-shadow:
+        0 0 10px #65e58b;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 16px;
+}
+
+.section-title h1 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.count {
+    color: #777784;
+    font-size: 13px;
 }
 
 .article {
-    background: white;
-    padding: 24px;
-    margin-bottom: 18px;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.055),
+            rgba(255,255,255,0.025)
+        );
+
+    border: 1px solid #252530;
+    border-radius: 16px;
+
+    padding: 22px;
+    margin-bottom: 14px;
+
+    transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background 0.18s ease;
+}
+
+.article:hover {
+    transform: translateY(-2px);
+
+    border-color: #5d42a0;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(155,108,255,0.10),
+            rgba(255,255,255,0.03)
+        );
+}
+
+.article-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 12px;
+}
+
+.tag {
+    color: #a982ff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.date {
+    color: #777784;
+    font-size: 12px;
 }
 
 .article h2 {
-    margin: 0 0 8px;
-    font-size: 22px;
+    margin: 0;
+
+    font-size: clamp(19px, 3vw, 25px);
+    line-height: 1.25;
 }
 
 .article h2 a {
-    color: #111;
+    color: #f4f4f7;
     text-decoration: none;
 }
 
 .article h2 a:hover {
-    text-decoration: underline;
-}
-
-.date {
-    color: #777;
-    font-size: 14px;
-    margin-bottom: 15px;
+    color: #b99aff;
 }
 
 .article p {
-    line-height: 1.5;
+    color: #aaaab5;
+    line-height: 1.55;
+    font-size: 14px;
+    margin: 13px 0 19px;
 }
 
 .read {
-    font-weight: bold;
+    color: #a982ff;
     text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+}
+
+.read span {
+    margin-left: 5px;
 }
 
 .empty {
-    background: white;
-    padding: 30px;
-    border-radius: 14px;
+    padding: 50px 20px;
     text-align: center;
+
+    color: #888895;
+
+    border: 1px solid #252530;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.025);
+}
+
+.footer {
+    text-align: center;
+    color: #555560;
+
+    font-size: 12px;
+    margin-top: 45px;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        padding-top: 25px;
+    }
+
+    .article {
+        padding: 18px;
+    }
+
+    .article-top {
+        flex-direction: column;
+        gap: 7px;
+    }
+
 }
 
 </style>
@@ -86,10 +276,40 @@ h1 {
 
 <div class="container">
 
-<h1>Latest Streamer News</h1>
+<header class="header">
+
+    <h1 class="logo">
+        STREAMER<span>NEWS</span>
+    </h1>
+
+    <div class="subtitle">
+        The latest from the streaming world.
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        UPDATED AUTOMATICALLY
+    </div>
+
+</header>
+
+<div class="section-title">
+
+    <h1>LATEST NEWS</h1>
+
+    <span class="count">
+        100 articles
+    </span>
+
+</div>
 
 
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">17 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/max-verstappen-vs-100-karting-streamers"
@@ -99,24 +319,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                17 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Max Verstappen started last at Silverstone on September 16 and cleared all 100 amateur karters in roughly 14 laps of the 30 he was given. The grid was creators as much as racers: ExtraEmily, TheGrefg, Wirtual, Supercar Blondie and TechnoGamerz all raced. More than 230,000 viewers according to Esport
-            </p>
+            <p>Max Verstappen started last at Silverstone on September 16 and cleared all 100 amateur karters in roughly 14 laps of the 30 he was given. The grid was creators as much as racers: ExtraEmily, TheGrefg, Wirtual, Supercar Blondie and TechnoGamerz all raced. More than 230,000 viewers according to Esport</p>
 
             <a class="read"
                href="https://streamer.guide/blog/max-verstappen-vs-100-karting-streamers"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/clarity-act-fomc-twitch-chat-reaction"
@@ -126,24 +346,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                16 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                The Senate failed to advance the CLARITY Act 49-50 on September 15, and the Fed raised rates a quarter point the next day. Both were streamed live, almost entirely on YouTube: one Clarity Act vote stream peaked at 69,456 concurrent viewers, and the Fed&#x27;s own feed at 69,410. Twitch never carried the 
-            </p>
+            <p>The Senate failed to advance the CLARITY Act 49-50 on September 15, and the Fed raised rates a quarter point the next day. Both were streamed live, almost entirely on YouTube: one Clarity Act vote stream peaked at 69,456 concurrent viewers, and the Fed&#x27;s own feed at 69,410. Twitch never carried the </p>
 
             <a class="read"
                href="https://streamer.guide/blog/clarity-act-fomc-twitch-chat-reaction"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/fomc-press-conference-september-2026-how-to-watch"
@@ -153,24 +373,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                16 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                The FOMC raised the federal funds target range by a quarter point to 3.75-4.00 percent on a unanimous 12-0 vote, citing inflation that remains elevated, and Chair Kevin Warsh took questions for the next hour. Full press conference replay, what the statement said, how many watched on the Fed&#x27;s own ch
-            </p>
+            <p>The FOMC raised the federal funds target range by a quarter point to 3.75-4.00 percent on a unanimous 12-0 vote, citing inflation that remains elevated, and Chair Kevin Warsh took questions for the next hour. Full press conference replay, what the statement said, how many watched on the Fed&#x27;s own ch</p>
 
             <a class="read"
                href="https://streamer.guide/blog/fomc-press-conference-september-2026-how-to-watch"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/twitch-streamer-data-leak-browser-extension-2026"
@@ -180,24 +400,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                16 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                A dark-web listing advertised September 9 claims data on roughly 40,000 Twitch streamers — emails, legal names, follower counts — and researchers who sampled it say it looks scraped, not breached. The more serious story is a browser extension with ~31,000 users that forwarded OAuth tokens to attacke
-            </p>
+            <p>A dark-web listing advertised September 9 claims data on roughly 40,000 Twitch streamers — emails, legal names, follower counts — and researchers who sampled it say it looks scraped, not breached. The more serious story is a browser extension with ~31,000 users that forwarded OAuth tokens to attacke</p>
 
             <a class="read"
                href="https://streamer.guide/blog/twitch-streamer-data-leak-browser-extension-2026"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/restream-mcp-grok-bot-templates"
@@ -207,24 +427,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                15 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Restream now runs an MCP server at mcp.restream.io/mcp that connects Claude, ChatGPT, Grok, Cursor and VS Code to your streaming account, plus seven free one-click Grok Bot templates for chat, transcripts, analytics and post-stream content. The bots only read — the server underneath can schedule, re
-            </p>
+            <p>Restream now runs an MCP server at mcp.restream.io/mcp that connects Claude, ChatGPT, Grok, Cursor and VS Code to your streaming account, plus seven free one-click Grok Bot templates for chat, transcripts, analytics and post-stream content. The bots only read — the server underneath can schedule, re</p>
 
             <a class="read"
                href="https://streamer.guide/blog/restream-mcp-grok-bot-templates"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/kai-cenat-vivet-nyfw-runway-debut"
@@ -234,24 +454,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                15 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Vivet, Kai Cenat&#x27;s clothing brand, showed Collection I at Cipriani on September 12 — on the official NYFW schedule, with Ray, BruceDropEmOff, Duke Dennis and Chanel model Alton Mason walking. Twitch called it the first streamer-led fashion line to take on NYFW. His broadcast peaked at 126,665 concur
-            </p>
+            <p>Vivet, Kai Cenat&#x27;s clothing brand, showed Collection I at Cipriani on September 12 — on the official NYFW schedule, with Ray, BruceDropEmOff, Duke Dennis and Chanel model Alton Mason walking. Twitch called it the first streamer-led fashion line to take on NYFW. His broadcast peaked at 126,665 concur</p>
 
             <a class="read"
                href="https://streamer.guide/blog/kai-cenat-vivet-nyfw-runway-debut"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/ironmouse-fortnite-icon-series-skin"
@@ -261,24 +481,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                15 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Epic confirmed Ironmouse for the Fortnite Icon Series, out September 18 at 5PM PT with two Outfits, two Emotes, a Pickaxe and a guitar. She is the first VTuber with a playable Icon Series Outfit — and she has zero recorded hours streaming Fortnite. The full set, release times by region, and why the 
-            </p>
+            <p>Epic confirmed Ironmouse for the Fortnite Icon Series, out September 18 at 5PM PT with two Outfits, two Emotes, a Pickaxe and a guitar. She is the first VTuber with a playable Icon Series Outfit — and she has zero recorded hours streaming Fortnite. The full set, release times by region, and why the </p>
 
             <a class="read"
                href="https://streamer.guide/blog/ironmouse-fortnite-icon-series-skin"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">12 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/blizzcon-2026-schedule-how-to-watch"
@@ -288,24 +508,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                12 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                The complete BlizzCon 2026 schedule for September 12-13 — both official grids, all seven stages, start times converted for the US, UK, Europe and APAC. Everything streams free on Twitch and YouTube with no virtual ticket, plus the viewership rewards for WoW, Diablo IV, Overwatch, Hearthstone, StarCr
-            </p>
+            <p>The complete BlizzCon 2026 schedule for September 12-13 — both official grids, all seven stages, start times converted for the US, UK, Europe and APAC. Everything streams free on Twitch and YouTube with no virtual ticket, plus the viewership rewards for WoW, Diablo IV, Overwatch, Hearthstone, StarCr</p>
 
             <a class="read"
                href="https://streamer.guide/blog/blizzcon-2026-schedule-how-to-watch"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">10 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/twitch-state-of-gaming-2026"
@@ -315,24 +535,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                10 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Twitch&#x27;s State of Gaming 2026 report: 8.6 billion hours of gaming watched in eight months, with League of Legends, Counter-Strike, GTA V, VALORANT and World of Warcraft taking nearly 1.7B of them. Indie content up 51%, sandbox at 831M hours, Drops-tagged streams at 1.6B. Jynxzi led North America wit
-            </p>
+            <p>Twitch&#x27;s State of Gaming 2026 report: 8.6 billion hours of gaming watched in eight months, with League of Legends, Counter-Strike, GTA V, VALORANT and World of Warcraft taking nearly 1.7B of them. Indie content up 51%, sandbox at 831M hours, Drops-tagged streams at 1.6B. Jynxzi led North America wit</p>
 
             <a class="read"
                href="https://streamer.guide/blog/twitch-state-of-gaming-2026"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">09 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/apple-event-2026-costreams-viewers"
@@ -342,24 +562,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                09 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Apple&#x27;s September 9 keynote peaked at 3,433,996 concurrent viewers, 3,105,635 of them on Apple&#x27;s own YouTube stream — third on Apple&#x27;s all-time list, behind the September 7, 2022 record. It was also the first Apple event popular streamers co-streamed: IShowSpeed, xQc and ohnepixel reacted live to th
-            </p>
+            <p>Apple&#x27;s September 9 keynote peaked at 3,433,996 concurrent viewers, 3,105,635 of them on Apple&#x27;s own YouTube stream — third on Apple&#x27;s all-time list, behind the September 7, 2022 record. It was also the first Apple event popular streamers co-streamed: IShowSpeed, xQc and ohnepixel reacted live to th</p>
 
             <a class="read"
                href="https://streamer.guide/blog/apple-event-2026-costreams-viewers"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">09 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/n3on-ai-stream-kick-higgsfield"
@@ -369,24 +589,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                09 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                N3on switched his Kick channel to a 24/7 AI clone powered by GPT-6 Astra and Higgsfield, calling it his &quot;last stream as a human being&quot;. After the sell-out accusations his defence opened with &quot;first off, it&#x27;s not AI&quot;. The quotes, why the world-first claim fails against Neuro-sama, and what Higgsfield
-            </p>
+            <p>N3on switched his Kick channel to a 24/7 AI clone powered by GPT-6 Astra and Higgsfield, calling it his &quot;last stream as a human being&quot;. After the sell-out accusations his defence opened with &quot;first off, it&#x27;s not AI&quot;. The quotes, why the world-first claim fails against Neuro-sama, and what Higgsfield</p>
 
             <a class="read"
                href="https://streamer.guide/blog/n3on-ai-stream-kick-higgsfield"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">07 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/kick-slots-casino-category-blocked-japan"
@@ -396,24 +616,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                07 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Kick has geo-blocked its Slots &amp; Casino category for viewers in Japan, joining Turkey, Indonesia, the UAE, France, the Netherlands, Belgium, Greece and Australia. The category is Kick&#x27;s third-biggest at around 188,000 concurrent viewers. Why Japan&#x27;s September 2025 law forced it, what the block actua
-            </p>
+            <p>Kick has geo-blocked its Slots &amp; Casino category for viewers in Japan, joining Turkey, Indonesia, the UAE, France, the Netherlands, Belgium, Greece and Australia. The category is Kick&#x27;s third-biggest at around 188,000 concurrent viewers. Why Japan&#x27;s September 2025 law forced it, what the block actua</p>
 
             <a class="read"
                href="https://streamer.guide/blog/kick-slots-casino-category-blocked-japan"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">04 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/zevent-2026-final-edition"
@@ -423,24 +643,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                04 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                ZEvent runs September 4-6 for its tenth and final edition, after opening with a concert in Montpellier. Full schedule in every timezone, how to claim the free ZEVENT 2026 global Twitch badge, the 338 registered channels, the EUR 16.179M record from 2025, and why the money now goes to all 22 associat
-            </p>
+            <p>ZEvent runs September 4-6 for its tenth and final edition, after opening with a concert in Montpellier. Full schedule in every timezone, how to claim the free ZEVENT 2026 global Twitch badge, the 338 registered channels, the EUR 16.179M record from 2025, and why the money now goes to all 22 associat</p>
 
             <a class="read"
                href="https://streamer.guide/blog/zevent-2026-final-edition"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">03 Sep 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/twitch-most-subbed-streamer-cinna"
@@ -450,24 +670,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                03 Sep 2026 · 12:00
-            </div>
-
-            <p>
-                Twitch officially crowned Cinna the current most subbed streamer with 127,347 active subscriptions. The full top 10 leaderboard, why 95% of her subs are gifted, who actually leads on self-paid subs, the all-time record that still stands at 1,064,090, and who Cinna is.
-            </p>
+            <p>Twitch officially crowned Cinna the current most subbed streamer with 127,347 active subscriptions. The full top 10 leaderboard, why 95% of her subs are gifted, who actually leads on self-paid subs, the all-time record that still stands at 1,064,090, and who Cinna is.</p>
 
             <a class="read"
                href="https://streamer.guide/blog/twitch-most-subbed-streamer-cinna"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">31 Aug 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/streamer-awards-2026-applications-open"
@@ -477,24 +697,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                31 Aug 2026 · 12:00
-            </div>
-
-            <p>
-                The Streamer Awards opened 2026 applications on August 31. Show date is November 12 at 3PM PT, applications close October 2, public nominations run September 12 to October 2, and voting opens October 16 — but only content from November 8, 2025 to October 1, 2026 is eligible. Full category list and e
-            </p>
+            <p>The Streamer Awards opened 2026 applications on August 31. Show date is November 12 at 3PM PT, applications close October 2, public nominations run September 12 to October 2, and voting opens October 16 — but only content from November 8, 2025 to October 1, 2026 is eligible. Full category list and e</p>
 
             <a class="read"
                href="https://streamer.guide/blog/streamer-awards-2026-applications-open"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">29 Aug 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/kai-cenat-among-us-lobby-2026"
@@ -504,24 +724,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                29 Aug 2026 · 12:00
-            </div>
-
-            <p>
-                Kai Cenat is running an Among Us lobby on August 29 at 3PM ET with Fanum, Pokimane, DDG, ExtraEmily, FlightReacts, YourRAGE, Silky, RayAsianBoy, Yonna, 2xRakai, ImDavisss and PrimatePaige. The full 13-player roster, start time in every timezone, and how to watch on Twitch and YouTube at once.
-            </p>
+            <p>Kai Cenat is running an Among Us lobby on August 29 at 3PM ET with Fanum, Pokimane, DDG, ExtraEmily, FlightReacts, YourRAGE, Silky, RayAsianBoy, Yonna, 2xRakai, ImDavisss and PrimatePaige. The full 13-player roster, start time in every timezone, and how to watch on Twitch and YouTube at once.</p>
 
             <a class="read"
                href="https://streamer.guide/blog/kai-cenat-among-us-lobby-2026"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">28 Aug 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/rolling-stone-most-influential-creators-2026"
@@ -531,24 +751,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                28 Aug 2026 · 12:00
-            </div>
-
-            <p>
-                Rolling Stone&#x27;s 2026 influence ranking puts IShowSpeed at #2, Hasan Piker at #3 and Kai Cenat at #4, behind only comedian Druski. Markiplier is #7 — and MrBeast, who tops every earnings list, is absent from all 25. Why follower counts didn&#x27;t decide the order.
-            </p>
+            <p>Rolling Stone&#x27;s 2026 influence ranking puts IShowSpeed at #2, Hasan Piker at #3 and Kai Cenat at #4, behind only comedian Druski. Markiplier is #7 — and MrBeast, who tops every earnings list, is absent from all 25. Why follower counts didn&#x27;t decide the order.</p>
 
             <a class="read"
                href="https://streamer.guide/blog/rolling-stone-most-influential-creators-2026"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">24 Aug 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/twitch-pokemon-chat-badges"
@@ -558,24 +778,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                24 Aug 2026 · 12:00
-            </div>
-
-            <p>
-                Twitch is handing out Pokémon chat badges until October 1. Pichu is free, Bulbasaur, Charmander and Squirtle need a sub or gift sub, and every Poké Ball takes 20 minutes of watching on 3 separate days. Qualifying categories, the Prime exclusion, and the Pikachu badges available only on August 28–30.
-            </p>
+            <p>Twitch is handing out Pokémon chat badges until October 1. Pichu is free, Bulbasaur, Charmander and Squirtle need a sub or gift sub, and every Poké Ball takes 20 minutes of watching on 3 separate days. Qualifying categories, the Prime exclusion, and the Pikachu badges available only on August 28–30.</p>
 
             <a class="read"
                href="https://streamer.guide/blog/twitch-pokemon-chat-badges"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">21 Aug 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/club-app-launch-ios-android"
@@ -585,24 +805,24 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                21 Aug 2026 · 12:00
-            </div>
-
-            <p>
-                Club, the creator monetization platform from the team behind Kick and Stake, has fully launched on iOS, Android and web with no invite required. Subscriptions, Club Cash tipping, paid unlocks and new Communities — plus 100k beta members, and the revenue split it still hasn&#x27;t published.
-            </p>
+            <p>Club, the creator monetization platform from the team behind Kick and Stake, has fully launched on iOS, Android and web with no invite required. Subscriptions, Club Cash tipping, paid unlocks and new Communities — plus 100k beta members, and the revenue split it still hasn&#x27;t published.</p>
 
             <a class="read"
                href="https://streamer.guide/blog/club-app-launch-ios-android"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
         <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">21 Aug 2026 · 12:00</span>
+            </div>
 
             <h2>
                 <a href="https://streamer.guide/blog/insta360-x6-360-camera-irl-streamers"
@@ -612,23 +832,2182 @@ h1 {
                 </a>
             </h2>
 
-            <div class="date">
-                21 Aug 2026 · 12:00
-            </div>
-
-            <p>
-                The Insta360 X6 is out at $699.99 — 8K 360 at 50fps, dual 1/1.1-inch Sony sensors, 140 minutes of 8K30 recording and PanoMind AI that cuts highlight reels while it charges. Full specs, the X5 upgrade case, and why its closest rival can&#x27;t be sold in the US.
-            </p>
+            <p>The Insta360 X6 is out at $699.99 — 8K 360 at 50fps, dual 1/1.1-inch Sony sensors, 140 minutes of 8K30 recording and PanoMind AI that cuts highlight reels while it charges. Full specs, the X5 upgrade case, and why its closest rival can&#x27;t be sold in the US.</p>
 
             <a class="read"
                href="https://streamer.guide/blog/insta360-x6-360-camera-irl-streamers"
                target="_blank"
                rel="noopener noreferrer">
-                Read original article →
+                READ ORIGINAL ARTICLE
+                <span>→</span>
             </a>
 
         </article>
         
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">20 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-sponsorships-affiliates-wehype"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Opens Sponsorships to Affiliates — and Wehype Is the New Partner
+                </a>
+            </h2>
+
+            <p>From August 20 Twitch Affiliates can take brand sponsorships that were Partner-only, through the Sponsorship Dashboard and Creator Profile, with certification now mandatory. Wehype surfaces third-party offers in-dashboard — the slot StreamElements held since February 2025.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-sponsorships-affiliates-wehype"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/xqc-streamer-tier-list"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    xQc&#x27;s Streamer Tier List: Every Name in Every Tier (S to F)
+                </a>
+            </h2>
+
+            <p>xQc ranked 37 of the biggest names in streaming on his August 18 broadcast, which peaked at 31,281 viewers. IShowSpeed, Jynxzi, Kai Cenat and CaseOh in S; Pokimane, Amouranth and Emiru in D; Ninja and Mitch Jones in F. The complete tier list.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/xqc-streamer-tier-list"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/bilibili-international-app-global-relaunch"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Bilibili Relaunches Its International App — No ID Verification, New Creator Hub
+                </a>
+            </h2>
+
+            <p>Bilibili has relaunched its international app globally on Android, dropping the identity verification that blocked overseas sign-ups. Three new creator accounts, a Discord creator hub, hiring in six cities and an English site in the works — the clearest global push yet from the 376M-user platform.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/bilibili-international-app-global-relaunch"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-subtember-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch SUBtember 2026: Dates, Discounts &amp; What Doesn&#x27;t Qualify
+                </a>
+            </h2>
+
+            <p>SUBtember 2026 runs August 28 to October 1: 25% off 1- and 3-month subs, 30% off 6-month subs, and streamers still get a full-price payout. What qualifies, what is excluded, the bonus Bits week and the gift-sub multipliers.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-subtember-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/mrbeast-meccha-chameleon-video-russia-title"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    MrBeast Gaming&#x27;s Meccha Chameleon Video: Full Lineup &amp; the Russia-Only Title
+                </a>
+            </h2>
+
+            <p>MrBeast Gaming&#x27;s new Meccha Chameleon challenge features Lachlan, Blaza, Formula, Aphernix and more, each labelled with a country flag. In Russian, YouTube serves a different title and thumbnail — &quot;Russia Takes Part in a Hide-and-Seek Game&quot; over a Russian tricolour. The full lineup and what the loca</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/mrbeast-meccha-chameleon-video-russia-title"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">12 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-generative-ai-training-opt-out"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Trains Amazon&#x27;s AI on Your Streams by Default — How to Opt Out
+                </a>
+            </h2>
+
+            <p>Twitch switched on generative AI training for every channel by default on August 12. Streams, VODs, clips, chat and channel images are in scope. The exact setting and steps to turn it off, what opting out does not stop, and why Twitch says it isn&#x27;t opt-in.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-generative-ai-training-opt-out"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">11 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/youtube-partner-program-2027-monetization-changes"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    YouTube Doubles YPP Requirements: 8,000 Watch Hours or 20M Shorts Views from February 2027
+                </a>
+            </h2>
+
+            <p>The first significant YouTube Partner Program change since 2018. From February 1, 2027 new creators need 1,000 subscribers plus 8,000 watch hours or 20M Shorts views — double the current bar. Existing partners are unaffected, but a separate 10M-view rule gates Shorts revenue for everyone.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/youtube-partner-program-2027-monetization-changes"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">11 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/leb1ga-kyiv-missile-attack-stream-clips-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Explosions on Stream: Leb1ga Was Live from a Fishing Marathon as Kyiv Came Under Missile Attack
+                </a>
+            </h2>
+
+            <p>Ukraine&#x27;s most-watched Twitch streamer was most of the way through a 24-hour fishing marathon in the Kyiv region when Russian ballistic missiles hit the capital overnight on August 11. Two clips from the broadcast, the stream-by-stream numbers, and the wider pattern.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/leb1ga-kyiv-missile-attack-stream-clips-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">10 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/streamer-prom-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Streamer Prom 2026: Date, Lineup &amp; Where to Watch
+                </a>
+            </h2>
+
+            <p>Streamer Prom returns on August 13, hosted by FunnyMike. 56 creators confirmed including DDG, n3on, Wendy Ortiz and India Love, with 100+ expected on the red carpet. Start times, the full lineup and the free Twitch broadcast.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/streamer-prom-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">09 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/drake-stake-kick-stream-viewers-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Drake&#x27;s Stake Anniversary Stream Peaked at 180,959 Viewers on Kick
+                </a>
+            </h2>
+
+            <p>Drake went live on Kick on August 8 for Stake&#x27;s 9th anniversary and a $1,000,000 giveaway, peaking at 180,959 concurrent viewers per Streams Charts — roughly six times his recent average and just short of his all-time Kick record.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/drake-stake-kick-stream-viewers-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">06 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/esports-world-cup-2026-kick-bigo-partnerships"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Esports World Cup 2026 Adds Kick and Bigo Live as Streaming Partners
+                </a>
+            </h2>
+
+            <p>The $75M Paris event expanded its distribution mid-tournament: Kick now officially streams the Esports World Cup at kick.com/esportsworldcup, and Bigo Live became the official MENA content partner for MLBB, Honor of Kings and PUBG Mobile — watch parties, predictions and multilingual commentary inclu</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/esports-world-cup-2026-kick-bigo-partnerships"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">06 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/esports-awards-2026-nominees"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Esports Awards 2026 Nominees: Full List, Miami Date &amp; How to Vote
+                </a>
+            </h2>
+
+            <p>The Esports Awards heads to Miami this November. First wave of finalists: iShowSpeed defends Streamer of the Year against Kai Cenat, Jynxzi, Caedrel and Cinna; Faker, Ibai and Magnus Carlsen contest Personality. All nine categories, plus voting until November 10 and double-weight Turbo Week.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/esports-awards-2026-nominees"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">04 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/riot-creator-partner-program-valorant-applications-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Riot&#x27;s Creator Partner Program: VALORANT Applications Close August 28, LoL and TFT Next
+                </a>
+            </h2>
+
+            <p>Riot opened the VALORANT Partner Program to direct applications on August 3 and the window shuts August 28. Full requirements (18+, ~20h/month, ~7,500 views or 20,000 followers), every perk, the League of Legends and TFT dates, and where Wild Rift stands.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/riot-creator-partner-program-valorant-applications-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">04 Aug 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/ludwig-streamer-games-2026-results"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Ludwig&#x27;s Streamer Games 2026 Results: Team Worldwide Wins, Full Standings &amp; 512K Peak
+                </a>
+            </h2>
+
+            <p>Team Worldwide won with 72 points at USC. Full final standings for all eight teams, every event winner, and the viewership behind it — 512,984 peak viewers and 6.45M hours watched, up 72% on 2025, with the platform and channel breakdown.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/ludwig-streamer-games-2026-results"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">31 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/razer-acquires-streamelements-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Razer Acquires StreamElements: What Changes for Creators (and What Doesn&#x27;t)
+                </a>
+            </h2>
+
+            <p>Razer has acquired the assets of StreamElements from Live Momentum Ltd. Overlays, alerts, the chatbot, tipping and SE.Live keep running and the platform stays standalone under a Razer subsidiary — but there are two dates to act on: the new privacy policy from August 1 and the SEPay withdrawal deadli</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/razer-acquires-streamelements-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">30 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/streamer-games-2026-full-roster"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Ludwig Reveals the Full Streamer Games 2026 Roster: All 8 Teams, 40 Creators
+                </a>
+            </h2>
+
+            <p>Ludwig posted the complete Streamer Games 2026 lineup — 8 teams of 5, 40 creators. Tyler1 and Jynxzi for USA, Gigguk and CDawgVA for the UK, Maghla and LittleBigWhale for France. Team-by-team list plus how to watch free on August 1–2.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/streamer-games-2026-full-roster"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">29 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/cinnathon-cinna-subathon-august-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Cinnathon 2026: Cinna&#x27;s 31-Day Subathon — Final Numbers &amp; How It Worked
+                </a>
+            </h2>
+
+            <p>Cinna&#x27;s subathon, the Cinnathon, ran August 1-31 on twitch.tv/cinna and closed with a &#x27;FINALE - SECRET LOCATION&#x27; broadcast. Final numbers: 668 hours aired, a 46,687 peak, 5.6M hours watched and +117K followers — plus how the sub timer worked and her Sis-a-thon track record.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/cinnathon-cinna-subathon-august-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">29 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/stake-scrapyard-001-abz-bracket-how-to-watch"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Stake Scrapyard 001: Full 16-Man Bracket, Rules &amp; Where It Aired
+                </a>
+            </h2>
+
+            <p>ABZ&#x27;s Stake Scrapyard 001 ran on Saturday, August 1 — 16 fighters, one night, one winner, free on kick.com/abz. Two-minute bouts in 4 oz MMA gloves, a random draw for the quarter-finals, all eight Round of 16 pairings, and why no winner has been published yet.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/stake-scrapyard-001-abz-bracket-how-to-watch"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">29 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kings-world-cup-clubs-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kings World Cup Clubs 2026 Is Live in Milan: Teams, Schedule &amp; Where to Watch
+                </a>
+            </h2>
+
+            <p>The third Kings World Cup Clubs started July 26 at the Fonzies Arena in Milan and runs to August 1. 16 clubs, a Swiss first stage, free streams on Twitch, YouTube and Kick — and the defending champions already lost 1–6.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kings-world-cup-clubs-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">25 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitchcon-san-diego-2026-tickets"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    TwitchCon San Diego 2026 Tickets: Prices, Dates &amp; What&#x27;s Included
+                </a>
+            </h2>
+
+            <p>TwitchCon San Diego 2026 passes are on sale — $239 for a 3-Day Pass, $299 with the Official Party, from $149 for single days. November 13–15 at the San Diego Convention Center, with early pricing ending August 14 and passes rising September 1.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitchcon-san-diego-2026-tickets"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">24 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/best-new-streaming-gear-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    New Streaming Gear 2026: What&#x27;s Actually Worth Upgrading To
+                </a>
+            </h2>
+
+            <p>The streaming gear worth upgrading to in 2026 — AI-tracking webcams (Insta360 Link 2, OBSBOT Meet 2), hybrid mics (Shure MV7+), wireless audio (DJI Mic Mini 2) and Stream Deck alternatives, with release dates and honest picks.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/best-new-streaming-gear-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">24 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/back-to-school-streaming-setup-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Back-to-School Streaming Setup 2026: Best Budget Gear for Students
+                </a>
+            </h2>
+
+            <p>The best budget streaming setup for students in 2026: a dorm-friendly starter kit under $250 (mic, webcam, light) plus a level-up path — picks for Twitch, YouTube and TikTok Live.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/back-to-school-streaming-setup-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">23 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/ludwig-streamer-games-2026-announced"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Ludwig&#x27;s Streamer Games 2026: Full Roster, Dates, Venue &amp; How to Watch
+                </a>
+            </h2>
+
+            <p>Ludwig&#x27;s Streamer Games 2026 runs August 1–2 at USC&#x27;s Allyson Felix Track &amp; Field Complex in LA. Full roster revealed — 8 teams, 39 creators including Tyler1, Jynxzi, CDawgVA, Cellbit &amp; QTCinderella. Free live stream on Twitch and YouTube.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/ludwig-streamer-games-2026-announced"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">23 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/la-velada-del-ano-6-how-to-watch-fight-card-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    La Velada del Año VI 2026: How to Watch, Full Fight Card &amp; Start Times — July 25
+                </a>
+            </h2>
+
+            <p>La Velada del Año VI is July 25 at Estadio La Cartuja in Sevilla. IlloJuan vs TheGrefg main event, 10 bouts, Anuel AA and Bad Gyal live, 80,000 fans. Free stream on Ibai&#x27;s Twitch and YouTube.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/la-velada-del-ano-6-how-to-watch-fight-card-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">21 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/streamer-university-2026-recap-award-winners"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Streamer University 2026: All Award Winners &amp; 731K Peak Viewership Recap
+                </a>
+            </h2>
+
+            <p>Streamer University 2026 wrapped with 731,000 peak concurrent viewers on Twitch. Full list of all award winners across 27 categories — Most Valuable Student, Best Professor, and more — from Kai Cenat&#x27;s creator event produced by Ludwig.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/streamer-university-2026-recap-award-winners"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">21 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/poland-trash-streaming-ban-law-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Poland Signs World&#x27;s First Anti-Trash-Streaming Law — Up to 5 Years in Prison
+                </a>
+            </h2>
+
+            <p>Poland became the first country to criminalize trash streaming. President Nawrocki signed the bill on July 17, 2026. Broadcasting criminal acts, animal abuse, or degrading content for profit now carries up to 5 years in prison — consent is not a legal defence.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/poland-trash-streaming-ban-law-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-streamer-university-2026-official-jersey"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Names Official Jersey Partner for 2026 Streamer University Championship
+                </a>
+            </h2>
+
+            <p>Twitch revealed the official crimson basketball jersey for the Streamer University 2026 championship — featuring the Twitch Glitch logo, &#x27;STREAMER 26&#x27; in gold, and a Twitch Yearbook Committee 2026 crest badge.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-streamer-university-2026-official-jersey"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/ishowspeed-fifa-world-cup-2026-closing-ceremony"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    IShowSpeed Performs at FIFA World Cup 2026 Closing Ceremony — First Content Creator in World Cup History
+                </a>
+            </h2>
+
+            <p>IShowSpeed opened the FIFA World Cup 2026 Closing Ceremony at MetLife Stadium on July 19, performing his original song World Cup (Champions). He became the first content creator ever to perform at a World Cup final, sharing the stage with Post Malone, Robbie Williams, Laura Pausini, and Nicole Scher</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/ishowspeed-fifa-world-cup-2026-closing-ceremony"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">12 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-summer-drops-fest-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Summer Drops Fest 2026: 45+ Games, Free In-Game Rewards (July 10–24)
+                </a>
+            </h2>
+
+            <p>Twitch Summer Drops Fest is live through July 24 with 45+ participating games including Apex Legends, League of Legends, Fortnite, and more. Watch streams to earn free in-game rewards.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-summer-drops-fest-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">12 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kick-beat-max-pubg-100k-drops-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kick Beat Max: Win a Share of $100,000 Playing PUBG: Battlegrounds
+                </a>
+            </h2>
+
+            <p>Kick launched Beat Max — a PUBG: Battlegrounds drops campaign where viewers can compete on a global leaderboard to win a share of $100,000. Watch 4 hours to claim the KICK Vest skin.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kick-beat-max-pubg-100k-drops-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">11 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/youtube-seasons-episodes-netflix-style-feature-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    YouTube Launches Seasons &amp; Episodes Feature — Looks Just Like Netflix
+                </a>
+            </h2>
+
+            <p>YouTube Partner Program creators can now structure playlists into Seasons and Episodes across TV, mobile, and desktop. The UI is nearly identical to Netflix, with cross-device resume playback built in.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/youtube-seasons-episodes-netflix-style-feature-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">09 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/8bit-creatives-kick-india-partnership-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    8Bit Creatives Becomes Kick&#x27;s First Creator Agency Partner in India — 48 Streamers Join
+                </a>
+            </h2>
+
+            <p>8Bit Creatives has officially become Kick&#x27;s first creator agency partner in India. 48 Indian gaming creators including Snax, Pahadi Gaming, Sid, Binks, Goblin, Mamba, and Viper have joined Kick as part of the landmark deal.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/8bit-creatives-kick-india-partnership-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">08 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/youtube-fifa-creator-cup-ishowspeed-july-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    YouTube × FIFA Creator Cup: IShowSpeed Leads 16-Creator Roster at Central Park — July 12, 5PM ET
+                </a>
+            </h2>
+
+            <p>The first-ever YouTube × FIFA Creator Cup takes place July 12 at Wollman Rink in Central Park. IShowSpeed captains a global 16-creator lineup coached by Cafu &amp; Materazzi, refereed by Pierluigi Collina. Free global stream on FIFA&#x27;s YouTube.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/youtube-fifa-creator-cup-ishowspeed-july-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">05 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kai-cenat-twitch-youtube-multistream-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kai Cenat Goes Multiplatform: Streaming on Both Twitch &amp; YouTube From Now On
+                </a>
+            </h2>
+
+            <p>Kai Cenat announced July 4 that he will stream on Twitch and YouTube simultaneously going forward. The most-subbed creator in Twitch history, with a 1M+ concurrent viewer peak, is going multiplatform — a milestone moment for streaming in 2026.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kai-cenat-twitch-youtube-multistream-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">04 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/x-live-studio-update-july-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    X Live Studio (Beta): Schedule Streams, OBS/RTMP Support, Real-Time Analytics &amp; Chat Controls
+                </a>
+            </h2>
+
+            <p>X launched Live Studio (beta) inside Creator Studio — replacing Media Studio Producer. Schedule streams up to a year ahead, connect OBS/Streamlabs/vMix via RTMP, monitor concurrent viewers in real time, and control chat audience. X Premium required.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/x-live-studio-update-july-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">04 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kai-cenat-return-streamer-university-2-reveal"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kai Cenat Returns July 6 — Streamer University 2 Student &amp; Professor Reveal Live on Twitch and YouTube
+                </a>
+            </h2>
+
+            <p>After a long break, Kai Cenat is back. He streams July 6, 2026 at 8PM EST on Twitch and YouTube to reveal the full Streamer University 2 cast — all students and professors announced live.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kai-cenat-return-streamer-university-2-reveal"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">02 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kick-stream-analytics-overview-daily-rewards-july-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kick Launches Stream Analytics, Daily Rewards &amp; Clears Partnership Queue in One Week
+                </a>
+            </h2>
+
+            <p>Kick pushed three major updates: Streams Overview analytics for verified creators, Daily Rewards for viewers, and full clearance of the Fast Track partnership backlog — every applicant got a reply.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kick-stream-analytics-overview-daily-rewards-july-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">01 Jul 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/fifa-world-cup-2026-group-stage-livestreaming"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    FIFA World Cup 2026 Group Stage: 1.1B+ Hours Watched — YouTube 94%, CHZZK Record, Twitch -7.5%
+                </a>
+            </h2>
+
+            <p>Streams Charts data: 1.1B+ Hours Watched across livestreaming in the group stage. YouTube took 94.3% of all watch time with a +14.5% viewership uplift. CHZZK set a new all-time record at 4.9M peak viewers. Twitch declined 7.5%.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/fifa-world-cup-2026-group-stage-livestreaming"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">30 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/trovo-live-streaming-shutdown-june-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Trovo Live Streaming Has Shut Down: What Happened &amp; Best Alternatives (June 30, 2026)
+                </a>
+            </h2>
+
+            <p>Trovo permanently shut down all live streaming on June 30, 2026. The live tab is gone, streams are offline. Full timeline from the January monetization cuts to the final shutdown, plus the best Trovo alternatives.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/trovo-live-streaming-shutdown-june-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">30 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kick-streaming-platform-interview-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Inside Kick 2026: 100M Users, $1B Investment, Still Not Profitable — Key Facts from SMH Interview
+                </a>
+            </h2>
+
+            <p>The Sydney Morning Herald interviewed Kick leadership. Key numbers: 100M registered users, 10M weekly actives, ~$1B personal founder investment, 95/5 revenue split, not yet profitable. Plus: content moderation controversy and what it means for streamers.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kick-streaming-platform-interview-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">25 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/forbes-top-creators-2026-streamers"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Forbes Top Creators 2026: MrBeast #1 at $300M — iShowSpeed, Jacksepticeye &amp; Typical Gamer on the List
+                </a>
+            </h2>
+
+            <p>Forbes ranked the 50 highest-earning creators. MrBeast leads at $300M. iShowSpeed hits #8 with $30M. Druski (#7), Typical Gamer (#26), and Jacksepticeye (#35) also made the cut. Total top-50 earnings: $1.02B — up 20% year-over-year.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/forbes-top-creators-2026-streamers"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-eu-subscription-refund-withdraw"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch EU Subscription Refund: New &quot;Withdraw from Sub&quot; Option — 14-Day Full Refund
+                </a>
+            </h2>
+
+            <p>Twitch is rolling out a &#x27;Withdraw from Sub&#x27; button for EU users, giving a full subscription refund within 14 days under the EU Consumer Rights Directive. Refund arrives within 10 business days.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-eu-subscription-refund-withdraw"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/uk-social-media-ban-under-16-twitch-youtube"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    UK Bans Under-16s from Social Media &amp; Livestreaming: Twitch and YouTube at Risk
+                </a>
+            </h2>
+
+            <p>The UK government announced a ban on under-16s using high-risk social media and livestreaming platforms — including Twitch and YouTube. Regulation before Christmas 2026, in force spring 2027. What it means for UK streamers.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/uk-social-media-ban-under-16-twitch-youtube"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-creator-sponsorship-certified"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Creator Sponsorship Certification: 12-Hour Early Access for Partners &amp; Affiliates
+                </a>
+            </h2>
+
+            <p>Twitch Partners and Affiliates can now earn Creator Sponsorship Certification via a free Creator Camp course — unlocking 12 hours of early access to Open Invite brand campaigns and a credibility stamp visible to sponsors.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-creator-sponsorship-certified"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">15 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/cazetv-youtube-world-cup-2026-record"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    CazéTV Breaks Livestreaming Record: 12.4M Viewers During Brazil vs Morocco
+                </a>
+            </h2>
+
+            <p>CazéTV peaked at 12,399,472 concurrent viewers during the FIFA World Cup 2026 opener — the first non-Chinese channel to exceed 10M Peak Viewers. YouTube also hit a new all-time record of 20.2M simultaneous viewers.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/cazetv-youtube-world-cup-2026-record"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">13 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/mrbeast-50-youtube-legends-1-million"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    MrBeast: 50 YouTube Legends Fight for $1,000,000 — Full Participant List
+                </a>
+            </h2>
+
+            <p>MrBeast reunited 50 classic YouTube creators — Syndicate, CaptainSparklez, VanossGaming, MKBHD, Casey Neistat, and more — to compete for $1,000,000 on June 13, 2026.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/mrbeast-50-youtube-legends-1-million"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">12 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/mrbeast-500-million-subscribers-livestream"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    MrBeast 500 Million Subscribers Livestream: First Creator in YouTube History
+                </a>
+            </h2>
+
+            <p>MrBeast became the first YouTube creator to hit 500 million subscribers on June 12, 2026, celebrating with a special milestone livestream. Watch the stream and see how he got there.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/mrbeast-500-million-subscribers-livestream"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">11 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/rumble-studio-free-multistream-tool"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Rumble Studio Launches Free Multistream Tool: Go Live on Every Platform at Once
+                </a>
+            </h2>
+
+            <p>Rumble launched Rumble Studio, a free browser-based tool to multistream to Rumble, YouTube, Twitch, Kick, and more simultaneously. Includes guest invites, built-in monetization, and no software download required.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/rumble-studio-free-multistream-tool"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">11 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kick-football-drop-world-cup-2026-jerseys"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kick Football Drop: Limited-Edition World Cup 2026 Jerseys — How to Get Yours
+                </a>
+            </h2>
+
+            <p>Kick launched a World Cup 2026 giveaway with 10 limited-edition jerseys inspired by xQc, Westcol, LosPollosTV, and more. Watch eligible channels to earn entries. Only 100 units per shirt. Deadline: July 19.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kick-football-drop-world-cup-2026-jerseys"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">11 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/esports-world-cup-2026-creator-program"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Esports World Cup 2026 Creator Program: $2M in Rewards for Co-Streamers
+                </a>
+            </h2>
+
+            <p>The Esports Foundation opened applications for EWC 2026 co-streaming on June 11. Earn from a $2,000,000 reward pool via missions and leaderboards on Twitch, YouTube, Kick, TikTok, SOOP, and Chzzk. Min. 50 ACCV required.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/esports-world-cup-2026-creator-program"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">09 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/ishowspeed-world-cup-2026-tour"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    iShowSpeed World Cup 2026 Tour: IRL Streams Across 16 Host Cities
+                </a>
+            </h2>
+
+            <p>iShowSpeed confirmed a North American IRL streaming tour across all 16 FIFA World Cup 2026 host cities in the US, Canada, and Mexico. Opening match stream kicks off June 13.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/ishowspeed-world-cup-2026-tour"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">01 Jun 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/streamer-university-2-announced"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Streamer University 2 Announced: Kai Cenat&#x27;s Creator Event Returns
+                </a>
+            </h2>
+
+            <p>Kai Cenat officially confirmed Streamer University 2 is happening. Season 1 generated 23M+ hours watched on Twitch with 120 students and 17 professors. Applications now open at streameruniversity.com.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/streamer-university-2-announced"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">30 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitchcon-rotterdam-2026-new-features-1440p-clips-guilds"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    TwitchCon Rotterdam 2026: 1440p Streaming, Auto Clips, GIFs in Chat &amp; 3 New Unity Guilds
+                </a>
+            </h2>
+
+            <p>Twitch opened TwitchCon Rotterdam 2026 with a major feature keynote: 1440p streaming for all Partners and Affiliates, Auto Clips, GIFs in chat, Moderator Anniversaries, and 3 new Unity Guilds.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitchcon-rotterdam-2026-new-features-1440p-clips-guilds"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">27 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/stake-ranked-drops-gaming-pc-giveaway-kick-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Stake Ranked Drops: Watch CS2 on Kick &amp; Win a Custom Gaming PC
+                </a>
+            </h2>
+
+            <p>Stake Ranked has launched viewer Drops for its CS2 tournament on Kick. Earn raffle tickets by watching — 1 per hour, up to 69 max entries. Ends May 31, 2026.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/stake-ranked-drops-gaming-pc-giveaway-kick-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">26 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/pewdiepie-ending-vlogs-son-privacy-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    PewDiePie Is Ending His YouTube Vlogs to Protect Son Björn&#x27;s Privacy
+                </a>
+            </h2>
+
+            <p>PewDiePie and Marzia will stop uploading their family vlog series in September 2026 after nearly four years in Japan. The 3-year-old son Björn&#x27;s right to choose his own online presence was the deciding factor.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/pewdiepie-ending-vlogs-son-privacy-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">24 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/eleven-all-stars-2026-france-england-parc-des-princes"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Eleven All Stars 2026 Results: France Wins 4-3 — 1M+ Peak Viewers
+                </a>
+            </h2>
+
+            <p>France defeated England 4-3 in Eleven All Stars 2026 at Parc des Princes on May 24. The event peaked at over 1 million concurrent viewers across Twitch and YouTube.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/eleven-all-stars-2026-france-england-parc-des-princes"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">23 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/crunch-creator-2026-france-england-rugby-bordeaux"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Crunch Creator 2026 Results: France Wins 62-61 Against England
+                </a>
+            </h2>
+
+            <p>France defeated England 62-61 in the Crunch Creator 2026 influencer rugby match on May 23 at Stade Atlantique Bordeaux, led by Diego (@djaysonkaravane).</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/crunch-creator-2026-france-england-rugby-bordeaux"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">22 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/best-summer-gifts-for-streamers-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Best Summer Gifts for Streamers &amp; Content Creators (2026 Guide)
+                </a>
+            </h2>
+
+            <p>11 top-rated gifts for Twitch streamers, TikTokers, and IRL creators across every budget. From a $15 silent desk fan to the Elgato Stream Deck — all available on Amazon.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/best-summer-gifts-for-streamers-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">22 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/kick-homepage-redesign-front-page-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Kick Reimagines Its Front Page — New Homepage Layout Rolling Out
+                </a>
+            </h2>
+
+            <p>Kick announced on May 22 that it is updating its front page with a new homepage layout, signaling ongoing investment in viewer discovery features that could impact creator visibility and audience growth.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/kick-homepage-redesign-front-page-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">21 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/baller-league-usa-season-1-viewership-stats-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Baller League USA Season 1: 176K Peak Viewers — WestCOL Leads, Modest US Debut
+                </a>
+            </h2>
+
+            <p>Streams Charts reports Baller League USA Season 1 peaked at 176,488 viewers with 2.86M hours watched across 14 channels. WestCOL led on Kick (76K), IShowSpeed on YouTube (56K), xQc on Twitch (27K).</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/baller-league-usa-season-1-viewership-stats-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">21 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/nyc-mayor-mamdani-twitch-talk-with-the-people-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    NYC Mayor Mamdani Launches &#x27;Talk with the People&#x27; — First Recurring Twitch Show by a US Official
+                </a>
+            </h2>
+
+            <p>Mayor Zohran Mamdani debuted a recurring Twitch Q&amp;A series on May 21 at 4:10 PM ET — the first sitting US elected official to host a regularly scheduled show on Twitch. Watch at twitch.tv/nyc_mayor.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/nyc-mayor-mamdani-twitch-talk-with-the-people-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">19 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/tyler1-all-stars-week-10-drututt-wins-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Tyler1 All-Stars Week 10: Drututt Wins — 27K Peak Viewers, 3-0 vs Potent
+                </a>
+            </h2>
+
+            <p>Drututt won Tyler1 All-Stars Week 10 on May 19 with a clean 3-0 sweep over Potent in the grand final. The event peaked at 27,000 viewers overall; loltyler1&#x27;s Twitch channel hit 21K.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/tyler1-all-stars-week-10-drututt-wins-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/eurovision-2026-winner-bulgaria-dara-youtube-viewers"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Eurovision 2026: Bulgaria Wins — Grand Final Peaks 1.25M on YouTube
+                </a>
+            </h2>
+
+            <p>Dara&#x27;s &#x27;Bangaranga&#x27; gave Bulgaria its first-ever Eurovision win at the 70th Grand Final in Vienna. The official YouTube stream peaked at 1,257,465 concurrent viewers, down from 1,417,497 in 2025.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/eurovision-2026-winner-bulgaria-dara-youtube-viewers"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/nurburgring-24h-2026-live-stream-youtube-500k-viewers"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Nürburgring 24h 2026 Is Live on YouTube with 500K+ Peak Viewers
+                </a>
+            </h2>
+
+            <p>The ADAC TOTAL 24h Nürburgring 2026 is live and free on YouTube. The race started May 16 at 15:30 CET and finishes May 17. Peak concurrent viewers have already surpassed 500,000.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/nurburgring-24h-2026-live-stream-youtube-500k-viewers"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/streamelements-shutting-down-acquisition-kick-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    StreamElements Shutdown Rumored — Platform Confirms Acquisition Talks, Kick CEO Responds
+                </a>
+            </h2>
+
+            <p>Reports suggest StreamElements may be shutting down, but no official closure has been confirmed. StreamElements says it is in positive acquisition discussions; Kick CEO Eddie confirms active talks.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/streamelements-shutting-down-acquisition-kick-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">16 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/zlan-2026-format-games-prize-pool-zerator"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    ZLAN 2026: Format, All 9 Games, Prize Pool &amp; How to Watch ZeratoR&#x27;s Event
+                </a>
+            </h2>
+
+            <p>ZLAN 2026 runs May 15–17 at Zénith Sud Montpellier. 100 duos compete across Street Fighter 6, Age of Empires IV, Worms WMD, Rocketboots Mania and more for a �����52,026 prize pool. Stream live on twitch.tv/zerator.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/zlan-2026-format-games-prize-pool-zerator"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">14 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/cristiano-ronaldo-cazetv-livemode-shareholder-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Cristiano Ronaldo Becomes Shareholder of CazéTV&#x27;s Parent Company LiveMode
+                </a>
+            </h2>
+
+            <p>CR7 has become a strategic partner and shareholder of LiveMode, the company behind CazéTV — the world&#x27;s most-watched sports livestreaming channel with an all-time YouTube peak of 4.1M viewers.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/cristiano-ronaldo-cazetv-livemode-shareholder-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">13 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-monetization-for-all-global-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Opens Monetization to All Streamers Globally — No Affiliate Required
+                </a>
+            </h2>
+
+            <p>Bits, subs, emotes, badges, and Channel Points are now available to all Twitch streamers globally with no Affiliate status needed. Plus a new Spendable Balance feature and easier Affiliate criteria.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-monetization-for-all-global-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">13 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/red-bull-cyborg-season-ultra-600-record-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Red Bull Cyborg Season Ultra 600: Most-Watched Red Bull Livestream Ever — 2.87M Peak
+                </a>
+            </h2>
+
+            <p>Arda Saatçi&#x27;s endurance marathon Red Bull Cyborg Season Ultra 600 (May 5–10) broke Red Bull&#x27;s all-time viewership records: 2,876,988 peak viewers, 26.2M hours watched, 114 channels across Twitch, YouTube, TikTok, and Kick. Reported by Streams Charts.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/red-bull-cyborg-season-ultra-600-record-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">13 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/adin-ross-brand-risk-14-fight-card-date-time-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Brand Risk 14: Full Fight Card, Date, Time &amp; How to Watch — Adin Ross &amp; Dana White
+                </a>
+            </h2>
+
+            <p>Brand Risk 14 takes place May 23 at UFC APEX Las Vegas. Johnny Manziel vs Bob Menery headlines, Ray J vs Supah Hot Fire co-main. 11 fights. Free on Kick, Twitch &amp; YouTube.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/adin-ross-brand-risk-14-fight-card-date-time-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">12 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/jynxzi-lol-tournament-results-team-xqc-wins"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Jynxzi&#x27;s LoL Tournament Results: Team xQc Wins — 417K Peak Viewers, 10M Followers
+                </a>
+            </h2>
+
+            <p>Team xQc defeated Team Zoil 28-4 in the finals of Jynxzi&#x27;s 40-streamer LoL tournament on May 11. Jynxzi peaked at 417,711 Twitch viewers and hit 10M followers. 900K+ total viewers across all streams.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/jynxzi-lol-tournament-results-team-xqc-wins"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">08 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-streamer-shouts-feature-test-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Tests Streamer Shouts: Personalized Post-Stream Messages to Viewers
+                </a>
+            </h2>
+
+            <p>Twitch is testing Streamer Shouts — personalized messages streamers can send to groups of viewers after a stream to celebrate follows, watch streaks, and milestones, delivered to the Activity Feed.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-streamer-shouts-feature-test-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">08 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/att-annihilator-cup-week-1-results-theburntpeanut-wins"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    AT&amp;T Annihilator Cup Week 1: TheBurntPeanut Wins CoD — 62K Peak on His Channel
+                </a>
+            </h2>
+
+            <p>Team Peanut topped Week 1 of the AT&amp;T Annihilator Cup 2026 with 20 points. TheBurntPeanut&#x27;s channel peaked at 62K on YouTube and 45K on Twitch — most-watched individual stream of the event.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/att-annihilator-cup-week-1-results-theburntpeanut-wins"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">07 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-viewbotting-enforcement-dan-clancy-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch CEO Dan Clancy: New Viewbotting Enforcement — CCV Caps for Persistent Offenders
+                </a>
+            </h2>
+
+            <p>Twitch CEO Dan Clancy announced on May 7, 2026 that channels caught persistently viewbotting will have their CCV capped based on real traffic history. Repeat violations mean longer penalties.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-viewbotting-enforcement-dan-clancy-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">06 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/ishowspeed-world-cup-tour-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    IShowSpeed Is Going on Tour During the 2026 FIFA World Cup
+                </a>
+            </h2>
+
+            <p>Speed confirmed his World Cup tour plans during a May 3 livestream from Antigua. After the Caribbean, he will have visited 96 countries — with space next on the list.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/ishowspeed-world-cup-tour-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">04 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/jynxzi-league-of-legends-tournament-may-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Jynxzi&#x27;s LoL Tournament May 11: Free Inkshadow Master Yi Skin via Twitch Drops
+                </a>
+            </h2>
+
+            <p>Jynxzi&#x27;s LoL tournament on May 11 at 4PM EST features Twitch Drops confirmed by Riot: 30 min for the Look Inward emote, 2 hours for a free Inkshadow Master Yi skin + champion.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/jynxzi-league-of-legends-tournament-may-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">03 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/3mr-most-watched-kick-streamer-april-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    3mr Is the Most Watched Kick Streamer of April 2026
+                </a>
+            </h2>
+
+            <p>Arabic streamer 3mr topped Kick in April 2026 with 10,454,741 hours watched. Full top 10 leaderboard with data from KickRanker.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/3mr-most-watched-kick-streamer-april-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">03 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/what-is-omoggle-ai-face-rating-twitch-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    What Is Omoggle? The AI Face-Rating Platform Taking Over Twitch
+                </a>
+            </h2>
+
+            <p>Omoggle pairs two strangers via webcam and uses AI to score their faces. xQc, Asmongold, and thousands of Twitch streamers are obsessed. Here is how it works.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/what-is-omoggle-ai-face-rating-twitch-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">01 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitchcon-rotterdam-2026-exhibitors-sponsors"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    TwitchCon Rotterdam 2026 Exhibitors &amp; Sponsors — Complete List
+                </a>
+            </h2>
+
+            <p>Full list of 30+ exhibitors and sponsors for TwitchCon Rotterdam 2026. Minecraft presenting sponsor, plus Streamlabs, Sea of Thieves, Fractal Design, and more.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitchcon-rotterdam-2026-exhibitors-sponsors"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+        <article class="article">
+
+            <div class="article-top">
+                <span class="tag">STREAMER NEWS</span>
+                <span class="date">01 May 2026 · 12:00</span>
+            </div>
+
+            <h2>
+                <a href="https://streamer.guide/blog/twitch-community-meetups-may-2026"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Twitch Community MeetUps May 2026 — Full Schedule &amp; Locations
+                </a>
+            </h2>
+
+            <p>12 Twitch Community MeetUps happening across the US, UK, Europe, and Australia in May 2026. Saskatoon, London, Atlanta, Cologne, Sydney, and more. RSVP at meetups.twitch.tv.</p>
+
+            <a class="read"
+               href="https://streamer.guide/blog/twitch-community-meetups-may-2026"
+               target="_blank"
+               rel="noopener noreferrer">
+                READ ORIGINAL ARTICLE
+                <span>→</span>
+            </a>
+
+        </article>
+        
+
+<footer class="footer">
+    Updated automatically every hour.
+</footer>
 
 </div>
 
