@@ -1,11 +1,11 @@
 import urllib.request
 import xml.etree.ElementTree as ET
 import html
-from datetime import datetime
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 
 FEEDS = [
-    "https://streamscharts.com/news/rss",
+    "https://streamer.guide/rss.xml",
 ]
 
 KEYWORDS = [
@@ -16,6 +16,8 @@ KEYWORDS = [
     "kick",
     "creator",
     "livestream",
+    "live stream",
+    "content creator",
 ]
 
 MAX_ARTICLES = 20
@@ -24,16 +26,19 @@ MAX_ARTICLES = 20
 def get_feed(url):
     request = urllib.request.Request(
         url,
-        headers={"User-Agent": "StreamerNews/1.0"}
+        headers={
+            "User-Agent": "Mozilla/5.0 StreamerNews/1.0"
+        }
     )
 
-    with urllib.request.urlopen(request, timeout=20) as response:
+    with urllib.request.urlopen(request, timeout=30) as response:
         return response.read()
 
 
 def clean_text(text):
     if not text:
         return ""
+
     return html.unescape(text).strip()
 
 
@@ -41,41 +46,68 @@ def get_articles():
     articles = []
 
     for feed_url in FEEDS:
+        print(f"Reading: {feed_url}")
+
         try:
             data = get_feed(feed_url)
             root = ET.fromstring(data)
 
             for item in root.findall(".//item"):
-                title = item.findtext("title", "")
-                link = item.findtext("link", "")
-                description = item.findtext("description", "")
-                pub_date = item.findtext("pubDate", "")
+                title = clean_text(
+                    item.findtext("title", "")
+                )
 
-                title = clean_text(title)
-                link = clean_text(link)
-                description = clean_text(description)
+                link = clean_text(
+                    item.findtext("link", "")
+                )
 
-                text = (title + " " + description).lower()
+                description = clean_text(
+                    item.findtext("description", "")
+                )
 
-                if not any(keyword in text for keyword in KEYWORDS):
+                pub_date = clean_text(
+                    item.findtext("pubDate", "")
+                )
+
+                text = (
+                    title + " " + description
+                ).lower()
+
+                if not any(
+                    keyword in text
+                    for keyword in KEYWORDS
+                ):
                     continue
 
                 try:
-                    date = parsedate_to_datetime(pub_date)
-                except Exception:
-                    date = datetime.now().astimezone()
+                    date = parsedate_to_datetime(
+                        pub_date
+                    )
 
-                articles.append({
-                    "title": title,
-                    "link": link,
-                    "description": description,
-                    "date": date,
-                })
+                    if date.tzinfo is None:
+                        date = date.replace(
+                            tzinfo=timezone.utc
+                        )
+
+                except Exception:
+                    date = datetime.now(
+                        timezone.utc
+                    )
+
+                if title and link:
+                    articles.append({
+                        "title": title,
+                        "link": link,
+                        "description": description,
+                        "date": date,
+                    })
 
         except Exception as error:
-            print(f"Could not read {feed_url}: {error}")
+            print(
+                f"Could not read {feed_url}: {error}"
+            )
 
-    # Remove duplicate links
+    # Remove duplicate URLs
     unique = {}
 
     for article in articles:
@@ -93,105 +125,182 @@ def get_articles():
 
 
 def make_page(articles):
+
     cards = ""
 
-    for article in articles:
-        title = html.escape(article["title"])
-        link = html.escape(article["link"], quote=True)
-        description = html.escape(article["description"][:250])
+    if not articles:
+        cards = """
+        <div class="empty">
+            No recent streamer news found.
+        </div>
+        """
 
-        date = article["date"].strftime("%d %b %Y, %H:%M")
+    for article in articles:
+
+        title = html.escape(
+            article["title"]
+        )
+
+        link = html.escape(
+            article["link"],
+            quote=True
+        )
+
+        description = html.escape(
+            article["description"][:300]
+        )
+
+        date = article["date"].strftime(
+            "%d %b %Y · %H:%M"
+        )
 
         cards += f"""
         <article class="article">
+
             <h2>
-                <a href="{link}" target="_blank" rel="noopener noreferrer">
+                <a href="{link}"
+                   target="_blank"
+                   rel="noopener noreferrer">
                     {title}
                 </a>
             </h2>
 
-            <p class="date">{date}</p>
+            <div class="date">
+                {date}
+            </div>
 
-            <p>{description}</p>
+            <p>
+                {description}
+            </p>
 
-            <a class="read" href="{link}" target="_blank"
+            <a class="read"
+               href="{link}"
+               target="_blank"
                rel="noopener noreferrer">
                 Read original article →
             </a>
+
         </article>
         """
 
     return f"""<!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Latest Streamer News</title>
+<meta charset="UTF-8">
 
-    <style>
-        body {{
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: auto;
-            padding: 30px 20px;
-            background: #f4f4f4;
-        }}
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
 
-        h1 {{
-            text-align: center;
-            margin-bottom: 30px;
-        }}
+<title>Latest Streamer News</title>
 
-        .article {{
-            background: white;
-            padding: 22px;
-            margin-bottom: 18px;
-            border-radius: 12px;
-        }}
+<style>
 
-        .article h2 {{
-            margin-top: 0;
-        }}
+* {{
+    box-sizing: border-box;
+}}
 
-        .article h2 a {{
-            color: #111;
-            text-decoration: none;
-        }}
+body {{
+    margin: 0;
+    padding: 30px 20px;
+    background: #f4f4f4;
+    font-family: Arial, sans-serif;
+}}
 
-        .article h2 a:hover {{
-            text-decoration: underline;
-        }}
+.container {{
+    max-width: 900px;
+    margin: auto;
+}}
 
-        .date {{
-            color: #777;
-            font-size: 14px;
-        }}
+h1 {{
+    text-align: center;
+    margin-bottom: 35px;
+}}
 
-        .read {{
-            font-weight: bold;
-            text-decoration: none;
-        }}
-    </style>
+.article {{
+    background: white;
+    padding: 24px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}}
+
+.article h2 {{
+    margin: 0 0 8px;
+    font-size: 22px;
+}}
+
+.article h2 a {{
+    color: #111;
+    text-decoration: none;
+}}
+
+.article h2 a:hover {{
+    text-decoration: underline;
+}}
+
+.date {{
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 15px;
+}}
+
+.article p {{
+    line-height: 1.5;
+}}
+
+.read {{
+    font-weight: bold;
+    text-decoration: none;
+}}
+
+.empty {{
+    background: white;
+    padding: 30px;
+    border-radius: 14px;
+    text-align: center;
+}}
+
+</style>
+
 </head>
 
 <body>
+
+<div class="container">
 
 <h1>Latest Streamer News</h1>
 
 {cards}
 
+</div>
+
 </body>
+
 </html>
 """
 
 
 if __name__ == "__main__":
+
     articles = get_articles()
+
+    print(
+        f"Found {len(articles)} matching articles."
+    )
 
     page = make_page(articles)
 
-    with open("index.html", "w", encoding="utf-8") as file:
+    with open(
+        "index.html",
+        "w",
+        encoding="utf-8"
+    ) as file:
+
         file.write(page)
 
-    print(f"Updated site with {len(articles)} articles.")
+    print(
+        f"Updated site with {len(articles)} articles."
+    )
